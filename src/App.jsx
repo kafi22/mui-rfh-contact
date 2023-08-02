@@ -1,12 +1,10 @@
-import { Carddesign, Contacts, Heading } from "./Component"
+import { Contacts } from "./Component"
 
 
 const App  = () => {
 
   return (
     <>
-    <Carddesign />
-    <Heading />
     <Contacts />
     </>
   )
