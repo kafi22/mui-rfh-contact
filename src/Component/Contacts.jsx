@@ -64,17 +64,17 @@ const Contacts = () => {
    })
 
   const HeadingTitle = (
-    <Typography variant='h2' sx={{ textAlign: 'center', padding: '20px 0' }}>
+    <Typography variant='h2' sx={{ textAlign: 'center', padding: '20px 0', color : '#331D2C'}}>
       Contact Us
     </Typography>
   );
 
   return (
     <Container fixed>
-      <Box sx={{ backgroundColor: '#FFF6DC', minHeight : '100vh', maxWidth : '900px', margin : '0 auto' }}>
+      <Box sx={{ backgroundColor: '#FFF6DC', minHeight : '100vh', maxWidth : '900px', margin : '0 auto', padding : '40px 0' }}>
         {HeadingTitle}
         <Typography
-          sx={{ lineHeight: '1.8', maxWidth: '60%', margin: '0 auto', textAlign: 'center' }}
+          sx={{ lineHeight: '1.8', maxWidth: '60%', margin: '0 auto', textAlign: 'center', fontWeight : '400', color : '#2D4356' }}
          
         >
           For further questions, including partnership opportunities, please email
