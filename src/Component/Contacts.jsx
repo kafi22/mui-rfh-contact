@@ -64,17 +64,17 @@ const Contacts = () => {
    })
 
   const HeadingTitle = (
-    <Typography variant='h2' sx={{ textAlign: 'center', padding: '20px 0' }}>
+    <Typography variant='h2' sx={{ textAlign: 'center', padding: '20px 0', color : '#331D2C'}}>
       Contact Us
     </Typography>
   );
 
   return (
     <Container fixed>
-      <Box sx={{ backgroundColor: '#FFF6DC', minHeight : '100vh', maxWidth : '900px', margin : '0 auto' }}>
+      <Box sx={{ backgroundColor: '#FFF6DC', minHeight : '100vh', maxWidth : '900px', margin : '0 auto', padding : '40px 0' }}>
         {HeadingTitle}
         <Typography
-          sx={{ lineHeight: '1.8', maxWidth: '60%', margin: '0 auto', textAlign: 'center' }}
+          sx={{ lineHeight: '1.8', maxWidth: '60%', margin: '0 auto', textAlign: 'center', fontWeight : '400', color : '#2D4356' }}
          
         >
           For further questions, including partnership opportunities, please email
@@ -109,6 +109,7 @@ const Contacts = () => {
             <FormControl sx={{width : '100%'}}>
               <TextField label='Last Name' size='small' 
               variant='standard'
+             
               type='text'
                sx={{width : '100%'}}
                {...register("lastName", {
@@ -158,7 +159,8 @@ const Contacts = () => {
             <FormControl sx={{width : '100%'}}>
                 <TextField sx={{width : '100%'}}
                 label='Present Address'
-                variant='standard'
+                variant='standard'  
+                size='small' 
                 error={!!errors.address?.presentAddress}
                 helperText={errors.address?.presentAddress?.message}
                 {...register("address.presentAddress", {
@@ -176,6 +178,7 @@ const Contacts = () => {
                 <TextField sx={{width : '100%'}}
                 label='permanent Address'
                 variant='standard'
+                size='small' 
                 error={!!errors.address?.permanentAddress}
                 helperText={errors.address?.permanentAddress?.message}
                 {...register("address.permanentAddress", {
@@ -194,6 +197,7 @@ const Contacts = () => {
                 label='post Code / Zip'
                 variant='standard'
                 type='text'
+                size='small' 
                 error={!!errors.postCode}
                 helperText={errors.postCode?.message}
                 {...register("postCode", {
@@ -212,6 +216,7 @@ const Contacts = () => {
                 <TextField sx={{width : '100%'}}
                 label='Country'
                 variant='standard'
+                size='small' 
                 error={!!errors.country}
                 helperText={errors.country?.message}
                 {...register("country", {
@@ -228,6 +233,7 @@ const Contacts = () => {
             <FormControl xs={{width : '100%'}}>
                 <TextField xs={{width : '100%'}}
                 type='date'
+                size='small' 
                 {...register("date", {
                     valueAsDate : true,
                     required : {
@@ -245,6 +251,7 @@ const Contacts = () => {
             <Box width='100%'>
                 <TextField label='State/Region'
                 type='text'
+                size='small' 
                 variant='standard'
                 sx={{width : '100%'}}
                 {...register("state", {
@@ -266,6 +273,7 @@ const Contacts = () => {
                     {fields.map((field, index) => (
                     <Box key={field.id} component={'div'} width="100%" display="flex" alignItems="center" margin={'10px 0'}>
                         <TextField
+                          size='small' 
                         label='Phone Number'
                         sx={{width : '100%'}}
                         variant='outlined'
