@@ -12,14 +12,50 @@ import {
 
 import React, { useEffect } from 'react';
 
+import {z} from 'zod';
+import {zodResolver} from '@hookform/resolvers/zod'
+
 import { Add as AddIcon, Remove as RemoveIcon } from '@mui/icons-material';
 
 import {useFieldArray, useForm} from "react-hook-form";
 import {DevTool} from "@hookform/devtools"
 
 
+const schema = z.object({
+
+  firstName: z.string().nonempty('First Name is required'),
+  lastName: z.string().nonempty('Last Name is required'),
+  email: z.string().nonempty('Email address is required').email('Email address is invalid'),
+  password: z.string().nonempty('Password is required'),
+  address: z
+    .object({
+      presentAddress: z.string().nonempty('Present Address is required'),
+      permanentAddress: z.string().nonempty('Permanent Address is required'),
+    }),
+  postCode: z.number().positive({message : 'postcode is required'}),
+  country: z.string().nonempty('Country Name is required'),
+  state: z.string().nonempty('State Name is required'),
+  date: z.date().min(new Date('1900-01-01'), 'Date cannot be earlier than 1900-01-01'),
+  phoneList: z
+    .array(
+      z.object({
+        Number: z.string()
+          .nonempty('Phone Number is required')
+          .min(10, 'Phone Number must be at least 10 characters long')
+          .max(15, 'Phone Number can be at most 15 characters long'),
+      })
+    )
+    .nonempty('Phone List is required'),
+  message: z.string().nonempty('Message is required'),
+
+})
+
+
 const Contacts = () => {
 
+  
+
+  
 
 
     // USE REACT FORM HOOK 
@@ -40,7 +76,10 @@ const Contacts = () => {
             state : '',
             date : new Date(),
             phoneList : [{Number : ''}]
-        }
+        },
+
+        mode : 'all',
+        resolver : zodResolver(schema)
     })
 
    
@@ -92,12 +131,7 @@ const Contacts = () => {
               type='text'
               variant='standard'
                sx={{ width: '100%' }}
-               {...register("firstName", {
-                required : {
-                    value : true,
-                    message : 'First Name is required'
-                }
-               })}
+               {...register("firstName")}
                error={!!errors.firstName}
                helperText={errors.firstName?.message}
                />
@@ -112,12 +146,7 @@ const Contacts = () => {
              
               type='text'
                sx={{width : '100%'}}
-               {...register("lastName", {
-                required : {
-                    value : true,
-                    message : 'lastName is required'
-                }
-               })}
+               {...register("lastName")}
                error={!!errors.lastName}
                helperText={errors.lastName?.message}
                />
@@ -143,12 +172,7 @@ const Contacts = () => {
                 size='small' 
                 variant='standard'
                 sx={{width : '100%'}}
-                {...register('password', {
-                    required : {
-                        value : true,
-                        message : 'password is required'
-                    }
-                })}
+                {...register('password')}
                 error={!!errors.password}
                 helperText={errors.password?.message}
                  />
@@ -163,12 +187,7 @@ const Contacts = () => {
                 size='small' 
                 error={!!errors.address?.presentAddress}
                 helperText={errors.address?.presentAddress?.message}
-                {...register("address.presentAddress", {
-                    required : {
-                        value : true,
-                        message : 'Address is required'
-                    }
-                })}
+                {...register("address.presentAddress")}
                 />
             </FormControl>
           </Grid>
@@ -181,12 +200,7 @@ const Contacts = () => {
                 size='small' 
                 error={!!errors.address?.permanentAddress}
                 helperText={errors.address?.permanentAddress?.message}
-                {...register("address.permanentAddress", {
-                    required : {
-                        value : true,
-                        message : 'Address is required'
-                    }
-                })}
+                {...register("address.permanentAddress")}
                 />
             </FormControl>
           </Grid>
@@ -200,13 +214,8 @@ const Contacts = () => {
                 size='small' 
                 error={!!errors.postCode}
                 helperText={errors.postCode?.message}
-                {...register("postCode", {
-                    valueAsNumber : true,
-                    required : {
-                        value : true,
-                        message : 'postcode is required'
-                    }
-                })}
+                
+                {...register("postCode", {valueAsNumber : true})}
                 />
             </FormControl>
           </Grid>
@@ -219,12 +228,7 @@ const Contacts = () => {
                 size='small' 
                 error={!!errors.country}
                 helperText={errors.country?.message}
-                {...register("country", {
-                    required : {
-                        value : true,
-                        message : 'country is required'
-                    }
-                })}
+                {...register("country")}
                 />
             </FormControl>
           </Grid>
@@ -234,13 +238,7 @@ const Contacts = () => {
                 <TextField xs={{width : '100%'}}
                 type='date'
                 size='small' 
-                {...register("date", {
-                    valueAsDate : true,
-                    required : {
-                        value : true,
-                        message : 'Date-of-birth is required'
-                    }
-                })}
+                {...register("date", {valueAsDate : true})}
                 error={!!errors.date}
                 helperText={errors.date?.message}
                 />
@@ -254,12 +252,7 @@ const Contacts = () => {
                 size='small' 
                 variant='standard'
                 sx={{width : '100%'}}
-                {...register("state", {
-                    required : {
-                        value : true,
-                        message : 'State is required'
-                    }
-                })}
+                {...register("state")}
                 error={!!errors.state}
                 helperText={errors.state?.message}
                 />
